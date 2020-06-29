@@ -32,6 +32,7 @@
             </list>
         </property>
     </bean>
+
     
     <!-- 配置全局日期类型转换器 -->
     <mvc:annotation-driven conversion-service="conversionService" />

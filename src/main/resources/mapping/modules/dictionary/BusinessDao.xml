@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javakc.ssm.modules.organization.business.dao.BusinessDao">
+
+    <sql id="businessAll">
+       agent,annual_fee,resource_fee,purchase_time,purchase_rank,purchase_way,
+       purchase_approach,allocation_condition,audit_condition,follow_condition,
+       stage_condition,business_remind,remark_message,organization_id
+    </sql>
+
+    <resultMap id="business" type="com.javakc.ssm.modules.organization.business.entity.BusinessEntity">
+        <id property="id" column="id"/>
+        <result property="agent" column="agent"/>
+        <result property="annualFee" column="annual_fee"/>
+        <result property="resourceFee" column="resource_fee"/>
+        <result property="purchaseTime" column="purchase_time"/>
+        <result property="purchaseRank" column="purchase_rank"/>
+        <result property="purchaseWay" column="purchase_way"/>
+        <result property="purchaseApproach" column="purchase_approach"/>
+        <result property="allocationCondition" column="allocation_condition"/>
+        <result property="auditCondition" column="audit_condition"/>
+        <result property="followCondition" column="follow_condition"/>
+        <result property="stageCondition" column="stage_condition"/>
+        <result property="businessRemind" column="business_remind"/>
+        <result property="remarkMessage" column="remark_message"/>
+        <result property="organizationId" column="organization_id"/>
+    </resultMap>
+
+
+    
+<!--    <insert id="save" parameterMap="business">-->
+<!--        insert into business_manage(<include refid="businessAll"/>)-->
+<!--        values (-->
+<!--            #{agent},#{annualFee},#{resourceFee},#{purchaseTime},#{purchaseRank},#{purchaseWay},-->
+<!--            #{purchaseApproach},#{allocationCondition},#{auditCondition},#{followCondition},#{stageCondition}-->
+<!--            ,#{businessRemind},#{remarkMessage},#{organizationId}-->
+<!--            )-->
+<!--    </insert>-->
+
+    <insert id="insert">
+        insert into business_manage(agent,annual_fee)
+        values (
+        #{agent},#{annualFee}
+        )
+    </insert>
+
+
+</mapper>
