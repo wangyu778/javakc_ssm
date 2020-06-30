@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javakc.ssm.modules.organization.information.dao.OrganizationDao">
+	
+	<resultMap id="organization" type="com.javakc.ssm.modules.organization.information.entity.OrganizationEntity">
+		<id column="id" property="id" />
+		<result property="organizationName" column="organization_name" />
+		<result property="organizationAddress" column="organization_address" />
+		<result property="contacts" column="contacts" />
+		<result property="phone" column="phone" />
+		<result property="telephone" column="telephone" />
+		<result property="country" column="country" />
+		<result property="province" column="province" />
+		<result property="city" column="city" />
+		<result property="zipCode" column="zipCode" />
+		<result property="website" column="website" />
+		<result property="organizationLevel" column="organization_level" />
+		<result property="industryCategory" column="industry_category" />
+		<result property="importanceLevel" column="importance_level" />
+		<result property="companyLevel" column="company_level" />
+		<result property="areaLevel" column="area_level" />
+		<association property="contactEntities" javaType="com.javakc.ssm.modules.organization.information.entity.ContactEntity" column="contactsId">
+			<result property="institution" column="institution" />
+			<result property="name" column="name" />
+			<result property="sex" column="sex" />
+			<result property="duty" column="duty" />
+			<result property="mobilePhone" column="mobile_phone" />
+			<result property="phone" column="phone" />
+			<result property="fax" column="fax" />
+			<result property="mail" column="mail" />
+			<result property="qq" column="qq" />
+			<result property="wechat" column="wechat" />
+			<result property="address" column="address" />
+			<result property="importantGrade" column="important_grade" />
+			<result property="followStatus" column="follow_status" />
+			<result property="agent" column="agent" />
+			<result property="ifAccept" column="if_accept" />
+			<result property="acceptReason" column="accept_reason" />
+			<result property="origin" column="origin" />
+			<result property="rank" column="rank" />
+			<result property="employeeId" column="employee_id" />
+		</association>
+	</resultMap>
+
+
+
+	<select id="findOrganization" resultType="com.javakc.ssm.modules.organization.information.entity.AllEntity">
+		select o.id as id , o.organization_name as organizationName,o.organization_level as organizationLevel,
+		o.province as organizationProvince,c.agent as employeeName, c.name as contactName,oi.audit_status as auditStatus
+		from organization o left join contacts_manage c on o.contacts_id=c.id
+		left join other_information oi on o.organization_name=oi.organization_name
+	</select>
+
+	<select id="checkOrganization" resultType="com.javakc.ssm.modules.organization.information.entity.OrganizationOtherEntity" parameterType="int">
+		select o.organization_name as organizationName,o.organization_address as organizationAddress,c.name as contacts,
+		c.mobile_phone as phone,c.phone as telephone,o.country as country,o.province as province,o.city as city,
+		o.zip_code as zipCode, o.website as website, o.organization_level as organizationLevel,
+		o.industry_category as industryCategory, o.importance_level as importanceLevel, o.company_level as companyLevel,
+		o.area_level as areaLevel,e.employee_name as employeeName,oi.annua_fee as annuaFee,oi.resources_fund as resourcesFund,
+		oi.procurement_time as procurementTime,oi.procurement_level as procurementLevel,oi.procurement_method as procurementMethod,
+		oi.organization_type as organizationType,oi.procurement_approach as procurementApproach,oi.distribution as distribution,
+		oi.audit_status as auditStatus,oi.remake as remake,oi.go_status as goStatus
+		from organization o left join contacts_manage c on o.contacts_id=c.id
+		left join other_information oi on o.organization_name=oi.organization_name
+		left join employee e on oi.employee_id=e.id
+	</select>
+
+	
+</mapper>
