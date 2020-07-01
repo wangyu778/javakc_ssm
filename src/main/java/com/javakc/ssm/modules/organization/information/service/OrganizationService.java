@@ -103,4 +103,9 @@ public class OrganizationService extends BaseService<OrganizationDao, Organizati
     }
 
 
+    public OrganizationEntity search(String names) {
+        OrganizationEntity entity = dao.get(names);
+        System.out.println("entity.getZipCode() = " + entity.getZipCode());
+        return entity;
+    }
 }
