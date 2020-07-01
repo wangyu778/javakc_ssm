@@ -65,5 +65,23 @@
 		left join employee e on oi.employee_id=e.id
 	</select>
 
+	<select id="queryCity" resultType="String" parameterType="string">
+		select city from province where province=#{0}
+	</select>
+
+	<update id="updateone" parameterType="map">
+		update organization set organization_address=#{organizationAddress},country=#{country},province=#{province},
+		city=#{city},zip_code=#{zipCode},website=#{website},organization_level=#{organizationLevel},industry_category=#{industryCategory},
+		importance_level=#{importanceLevel},company_level=#{companyLevel},area_level=#{areaLevel}
+		where organization_name=#{organizationName}
+	</update>
+
+	<update id="updatetwo" parameterType="map">
+		update other_information set annua_fee=#{annuaFee},resources_fund=#{resourcesFund},procurement_time=#{procurementTime},
+		procurement_level=#{procurementLevel},procurement_method=#{procurementMethod},organization_type=#{organizationType},
+		procurement_approach=#{procurementApproach},distribution=#{distribution},audit_status=#{auditStatus},remake=#{remake},
+		go_status=#{goStatus} where organization_name=#{organizationName}
+	</update>
+
 	
 </mapper>

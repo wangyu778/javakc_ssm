@@ -6,11 +6,17 @@ import com.javakc.ssm.modules.organization.information.dao.OrganizationDao;
 import com.javakc.ssm.modules.organization.information.entity.AllEntity;
 import com.javakc.ssm.modules.organization.information.entity.OrganizationEntity;
 import com.javakc.ssm.modules.organization.information.entity.OrganizationOtherEntity;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
+@Transactional(readOnly = false)
 public class OrganizationService extends BaseService<OrganizationDao, OrganizationEntity> {
 
     /**
@@ -45,6 +51,55 @@ public class OrganizationService extends BaseService<OrganizationDao, Organizati
     public OrganizationOtherEntity checkOrganization(int id){
         OrganizationOtherEntity entity = dao.checkOrganization(id);
         return entity;
+    }
+
+    /**
+     * 通过省份名称查看该省份下的所有城市
+     * @param data
+     * @return
+     */
+    public List<String> queryCity(String data){
+        List<String> list = dao.queryCity(data);
+        return list;
+    }
+
+    /**
+     * 前端的编辑页面保存时，对数据进行保存
+     * @param organizationOtherEntity
+     */
+    public void update(OrganizationOtherEntity organizationOtherEntity){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(organizationOtherEntity.getProcurementTime());
+
+        Map<String, String> one = new HashMap<>();
+        one.put("organizationName",organizationOtherEntity.getOrganizationName());
+        one.put("organizationAddress",organizationOtherEntity.getOrganizationAddress());
+        one.put("country",organizationOtherEntity.getCountry()+"");
+        one.put("province",organizationOtherEntity.getProvince());
+        one.put("city",organizationOtherEntity.getCity());
+        one.put("zipCode",organizationOtherEntity.getZipCode());
+        one.put("website",organizationOtherEntity.getWebsite());
+        one.put("organizationLevel",organizationOtherEntity.getOrganizationLevel()+"");
+        one.put("industryCategory",organizationOtherEntity.getIndustryCategory()+"");
+        one.put("importanceLevel",organizationOtherEntity.getImportanceLevel()+"");
+        one.put("companyLevel",organizationOtherEntity.getCompanyLevel()+"");
+        one.put("areaLevel",organizationOtherEntity.getAreaLevel()+"");
+        dao.updateone(one);
+
+        Map<String, String> two = new HashMap<>();
+        two.put("organizationName",organizationOtherEntity.getOrganizationName());
+        two.put("annuaFee",organizationOtherEntity.getAnnuaFee()+"");
+        two.put("resourcesFund",organizationOtherEntity.getResourcesFund()+"");
+        two.put("procurementTime",format);
+        two.put("procurementLevel",organizationOtherEntity.getProcurementLevel()+"");
+        two.put("procurementMethod",organizationOtherEntity.getProcurementMethod()+"");
+        two.put("organizationType",organizationOtherEntity.getOrganizationType()+"");
+        two.put("procurementApproach",organizationOtherEntity.getProcurementApproach()+"");
+        two.put("distribution",organizationOtherEntity.getDistribution()+"");
+        two.put("auditStatus",organizationOtherEntity.getAuditStatus()+"");
+        two.put("remake",organizationOtherEntity.getRemake()+"");
+        two.put("goStatus",organizationOtherEntity.getGoStatus()+"");
+        dao.updatetwo(two);
     }
 
 

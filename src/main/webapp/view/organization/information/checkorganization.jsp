@@ -138,7 +138,7 @@
 						<div class="form-group">
 							<label class="col-md-1 control-label text-center">年费:</label>
 							<div class="col-md-5">
-								<input class="form-control" type="text" placeholder="${entity.organizationName }" readonly>
+								<input class="form-control" type="text" placeholder="${entity.annuaFee }" readonly>
 
 							</div>
 							<label class="col-md-1 control-label text-center">分配情况:</label>
@@ -153,18 +153,18 @@
 						<div class="form-group">
 							<label class="col-md-1 control-label text-center">电子资源经费:</label>
 							<div class="col-md-5">
-								<input class="form-control" type="text" placeholder="${entity.organizationName }" readonly>
+								<input class="form-control" type="text" placeholder="${entity.resourcesFund }" readonly>
 
 							</div>
 							<label class="col-md-1 control-label text-center">采购时间:</label>
 							<div class="col-md-5">
-								<input class="form-control" type="text" placeholder="${entity.zipCode}" readonly>
+								<input class="form-control" type="text" placeholder="${entity.procurementTime}" readonly>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-1 control-label text-center">备注信息:</label>
 							<div class="col-md-5">
-								<input class="form-control" type="text" placeholder="${entity.organizationName }" readonly>
+								<input class="form-control" type="text" placeholder="${entity.remake }" readonly>
 
 							</div>
 							<label class="col-md-1 control-label text-center">采购级别:</label>
