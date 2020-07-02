@@ -14,7 +14,7 @@
 		<result property="city" column="city" />
 		<result property="zipCode" column="zip_code" />
 		<result property="website" column="website" />
-		<result property="organizationLevel" column="organizationLevel" />
+		<result property="organizationLevel" column="organization_Level" />
 		<result property="industryCategory" column="industry_category" />
 		<result property="importanceLevel" column="importance_level" />
 		<result property="companyLevel" column="company_level" />

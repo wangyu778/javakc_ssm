@@ -30,5 +30,50 @@
 		select * from contacts_manage where id = #{0}
 	</select>
 
+	<select id="findContact" resultType="com.javakc.ssm.modules.organization.information.entity.ContactEntity">
+		select id,institution,name,sex,duty,mobile_phone as mobilePhone,phone,fax,mail,qq,wechat,address,
+		important_grade as importantGrade,follow_status as followStatus,agent,if_accept as ifAccept,
+		accept_reason as acceptReason,origin,rank from contacts_manage
+	</select>
+
+	<select id="checkContact" resultType="com.javakc.ssm.modules.organization.information.entity.ContactEntity" parameterType="int">
+		select id,institution,name,sex,duty,mobile_phone as mobilePhone,phone,fax,mail,qq,wechat,address,
+		important_grade as importantGrade,follow_status as followStatus,agent,if_accept as ifAccept,
+		accept_reason as acceptReason,origin,rank from contacts_manage where id=#{0}
+	</select>
+
+	<select id="queryEmployee" resultType="String">
+		select employee_name from employee
+	</select>
+
+	<update id="updateone" parameterType="map">
+		update contacts_manage set institution=#{institution},name=#{name},sex=#{sex},duty=#{duty},
+		mobile_phone=#{mobilePhone},phone=#{phone},fax=#{fax},mail=#{mail},qq=#{qq},wechat=#{wechat},
+		address=#{address},important_grade=#{importantGrade},follow_status=#{followStatus},agent=#{agent},
+		if_accept=#{ifAccept},accept_reason=#{acceptReason},origin=#{origin},rank=#{rank}
+		where id=#{id}
+	</update>
+
+	<select id="queryempByname" parameterType="string" resultType="string">
+		select id from employee where employee_name=#{0}
+	</select>
+
+	<update id="updateotherempid" parameterType="string">
+		update other_information set employee_id=#{0} where organization_name=#{1}
+	</update>
+
+	<insert id="createcontact" parameterType="map">
+		insert into contacts_manage (name,sex,duty,mobile_phone,phone,fax,mail,qq,wechat,address,important_grade,follow_status,
+		agent,if_accept,accept_reason,origin,rank) values(#{name},#{sex},#{duty},#{mobilePhone},#{phone},#{fax},#{mail},
+		#{qq},#{wechat},#{address},#{importantGrade},#{followStatus},#{agent},#{ifAccept},#{acceptReason},#{origin},#{rank})
+	</insert>
+
+	<delete id="deleteContact" parameterType="int">
+		delete from contacts_manage where id = #{id}
+	</delete>
+
+	<update id="deleteOrgbyname" parameterType="string">
+		update organization set contacts='',phone='',telephone='',agent='' where organization_name=#{0}
+	</update>
 	
 </mapper>
