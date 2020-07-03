@@ -62,7 +62,7 @@
 		oi.audit_status as auditStatus,oi.remake as remake,oi.go_status as goStatus
 		from organization o left join contacts_manage c on o.contacts_id=c.id
 		left join other_information oi on o.organization_name=oi.organization_name
-		left join employee e on oi.employee_id=e.id
+		left join employee e on oi.employee_id=e.id where o.id=#{0}
 	</select>
 
 	<select id="get" resultMap="organization" parameterType="string">
@@ -70,6 +70,73 @@
 		,country,province,city,zip_code,website,organization_level,industry_category,
 		importance_level,company_level,area_level from organization where organization_name = #{names}
 	</select>
+
+	<select id="queryCity" resultType="String" parameterType="string">
+		select city from province where province=#{0}
+	</select>
+
+	<update id="updateone" parameterType="map">
+		update organization set organization_address=#{organizationAddress},country=#{country},province=#{province},
+		city=#{city},zip_code=#{zipCode},website=#{website},organization_level=#{organizationLevel},industry_category=#{industryCategory},
+		importance_level=#{importanceLevel},company_level=#{companyLevel},area_level=#{areaLevel}
+		where organization_name=#{organizationName}
+	</update>
+
+	<update id="updatetwo" parameterType="map">
+		update other_information set annua_fee=#{annuaFee},resources_fund=#{resourcesFund},procurement_time=#{procurementTime},
+		procurement_level=#{procurementLevel},procurement_method=#{procurementMethod},organization_type=#{organizationType},
+		procurement_approach=#{procurementApproach},distribution=#{distribution},audit_status=#{auditStatus},remake=#{remake},
+		go_status=#{goStatus} where organization_name=#{organizationName}
+	</update>
+
+	<insert id="createone" parameterType="map">
+		insert into organization (organization_name,organization_address,contacts,phone,telephone,country,province,city
+		,zip_code,website,organization_level,industry_category,importance_level,company_level,area_level) values (#{organizationName},
+		#{organizationAddress},#{contacts},#{phone},#{telephone},#{country},#{province},#{city},#{zipCode},#{website},
+		#{organizationLevel},#{industryCategory},#{importanceLevel},#{companyLevel},#{areaLevel})
+	</insert>
+
+	<insert id="createtwo" parameterType="map">
+		insert into other_information (organization_name,employee_id,annua_fee,resources_fund,procurement_time,procurement_level,
+		procurement_method,organization_type,procurement_approach,distribution,audit_status,remake,go_status) values (#{organizationName},
+		#{employeeId},#{annuaFee},#{resourcesFund},#{procurementTime},#{procurementLevel},#{procurementMethod},#{organizationType},
+		#{procurementApproach},#{distribution},#{auditStatus},#{remake},#{goStatus})
+	</insert>
+
+	<select id="queryorgbyname" resultType="string" parameterType="string">
+		select organization_name from organization where organization_name=#{0}
+	</select>
+
+	<select id="queryempidbyname" parameterType="string" resultType="string">
+		select id from employee where employee_name=#{0}
+	</select>
+
+	<update id="updatebynameandname" parameterType="map">
+		update contacts_manage set institution=#{organizationName} where name=#{contacts}
+	</update>
+
+	<select id="queryotheridbyname" parameterType="string" resultType="string">
+		select id from other_information where organization_name=#{0}
+	</select>
+	<select id="querycontactidbyname" parameterType="string" resultType="string">
+		select id from contacts_manage where institution=#{0}
+	</select>
+
+	<update id="updateorgbyidid" parameterType="map">
+		update organization set other_id=#{otherid},contacts_id=#{contactid} where organization_name=#{organizationName}
+	</update>
+
+	<delete id="deleteorganization" parameterType="int">
+		delete from organization where id=#{0}
+	</delete>
+
+	<delete id="deleteother" parameterType="string">
+		delete from other_information where organization_name=#{0}
+	</delete>
+
+	<delete id="deletecontact" parameterType="string">
+		delete from contacts_manage where institution=#{0}
+	</delete>
 
 	
 </mapper>

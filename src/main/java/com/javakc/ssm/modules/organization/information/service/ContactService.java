@@ -4,6 +4,7 @@ import com.javakc.ssm.base.page.Page;
 import com.javakc.ssm.base.service.BaseService;
 import com.javakc.ssm.modules.organization.information.dao.ContactDao;
 import com.javakc.ssm.modules.organization.information.entity.ContactEntity;
+import com.javakc.ssm.modules.organization.information.entity.TempEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -124,6 +125,20 @@ public class ContactService extends BaseService<ContactDao, ContactEntity> {
             dao.deleteOrgbyname(institution);
         }
         dao.deleteContact(id);
+    }
+
+    public List<String> queryContactbynull(){
+        List<String> list = dao.queryContactbynull();
+        return list;
+    }
+
+    public Map<String,String> querycontactbyname(String contactname){
+        TempEntity entity = dao.querycontactbyname(contactname);
+        Map<String, String> map = new HashMap<>();
+        map.put("mobilePhone",entity.getMobilePhone());
+        map.put("phone",entity.getPhone());
+        map.put("agent",entity.getAgent());
+        return map;
     }
 
 }

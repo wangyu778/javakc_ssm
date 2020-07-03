@@ -72,6 +72,19 @@ public class OrganizationController {
         return "organization/information/editororganization";
     }
 
+
+    /**
+     * 通过前端传进来的机构的id进行数据的查询，然后将数据返回到修改页面，供操作者查看和修改
+     * @param id
+     * @return
+     */
+    @RequestMapping("deleteOrganization/{id}")
+    public String deleteOrganization(@PathVariable int id){
+        System.out.println("deleteOrganization=============================="+id);
+        organizationService.deleteOrganization(id);
+        return "redirect:/organization/queryOrganization.do";
+    }
+
     /**
      * 前端的异步请求，前端传来省份的名称，后台到数据库中查询该省份下的城市，封装到List中返回
      * @param shengfen
@@ -80,7 +93,11 @@ public class OrganizationController {
     @ResponseBody
     @RequestMapping("queryCity")
     public List<String> queryCity(String shengfen){
+        System.out.println(shengfen);
         List<String> list = organizationService.queryCity(shengfen);
+        for (String s : list) {
+            System.out.println(s);
+        }
         return list;
     }
 
@@ -92,6 +109,20 @@ public class OrganizationController {
     @RequestMapping("update")
     public String update(OrganizationOtherEntity organizationOtherEntity){
         organizationService.update(organizationOtherEntity);
+        return "redirect:/organization/queryOrganization.do";
+    }
+    @ResponseBody
+    @RequestMapping("queryorgbyname")
+    public String queryorgbyname(String organizationname){
+        System.out.println(organizationname);
+        String result = organizationService.queryorgbyname(organizationname);
+        return result;
+    }
+
+    @RequestMapping("createorganization")
+    public String createorganization(OrganizationOtherEntity organizationOtherEntity){
+        System.out.println(organizationOtherEntity.toString());
+        organizationService.createorganization(organizationOtherEntity);
         return "redirect:/organization/queryOrganization.do";
     }
 }

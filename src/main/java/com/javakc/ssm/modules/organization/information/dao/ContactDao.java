@@ -2,6 +2,7 @@ package com.javakc.ssm.modules.organization.information.dao;
 
 import com.javakc.ssm.base.dao.BaseDao;
 import com.javakc.ssm.modules.organization.information.entity.ContactEntity;
+import com.javakc.ssm.modules.organization.information.entity.TempEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -67,4 +68,8 @@ public interface ContactDao extends BaseDao<ContactEntity> {
      * @param name
      */
     public void deleteOrgbyname(String name);
+
+    public List<String> queryContactbynull();
+
+    public TempEntity querycontactbyname(String contactname);
 }

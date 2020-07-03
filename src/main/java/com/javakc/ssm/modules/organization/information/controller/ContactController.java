@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/contact")
@@ -108,5 +110,20 @@ public class ContactController {
     public String deleteContact(@PathVariable int id){
         contactService.deleteContact(id);
         return "redirect:/contact/queryContact.do";
+    }
+
+    @ResponseBody
+    @RequestMapping("queryContactbynull")
+    public List<String> queryContactbynull(){
+        List<String> list = contactService.queryContactbynull();
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("querycontactbyname")
+    public Map<String,String> querycontactbyname(String contactname){
+        System.out.println(contactname);
+        Map<String, String> map = contactService.querycontactbyname(contactname);
+        return map;
     }
 }

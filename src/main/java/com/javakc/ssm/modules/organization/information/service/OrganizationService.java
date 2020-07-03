@@ -59,7 +59,11 @@ public class OrganizationService extends BaseService<OrganizationDao, Organizati
      * @return
      */
     public List<String> queryCity(String data){
+        System.out.println("service的"+data);
         List<String> list = dao.queryCity(data);
+        for (String s : list) {
+            System.out.println("service的"+s);
+        }
         return list;
     }
 
@@ -107,5 +111,82 @@ public class OrganizationService extends BaseService<OrganizationDao, Organizati
         OrganizationEntity entity = dao.get(names);
         System.out.println("entity.getZipCode() = " + entity.getZipCode());
         return entity;
+    }
+
+    public String queryorgbyname(String name){
+        String queryorgbyname = dao.queryorgbyname(name);
+        System.out.println(queryorgbyname);
+
+        //如果能查得到该机构的名称那么返回2
+        if (queryorgbyname != null && queryorgbyname.length()>0){
+            return "2";
+        }else {
+            //如果查不到该机构的名称那么返回1
+            return "1";
+        }
+    }
+
+    public void createorganization(OrganizationOtherEntity organizationOtherEntity){
+
+        String id = dao.queryempidbyname(organizationOtherEntity.getEmployeeName());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(organizationOtherEntity.getProcurementTime());
+
+        Map<String, String> one = new HashMap<>();
+        one.put("organizationName",organizationOtherEntity.getOrganizationName());
+        one.put("organizationAddress",organizationOtherEntity.getOrganizationAddress());
+        one.put("contacts",organizationOtherEntity.getContacts());
+        one.put("phone",organizationOtherEntity.getPhone());
+        one.put("telephone",organizationOtherEntity.getTelephone());
+        one.put("country",organizationOtherEntity.getCountry()+"");
+        one.put("province",organizationOtherEntity.getProvince());
+        one.put("city",organizationOtherEntity.getCity());
+        one.put("zipCode",organizationOtherEntity.getZipCode());
+        one.put("website",organizationOtherEntity.getWebsite());
+        one.put("organizationLevel",organizationOtherEntity.getOrganizationLevel()+"");
+        one.put("industryCategory",organizationOtherEntity.getIndustryCategory()+"");
+        one.put("importanceLevel",organizationOtherEntity.getImportanceLevel()+"");
+        one.put("companyLevel",organizationOtherEntity.getCompanyLevel()+"");
+        one.put("areaLevel",organizationOtherEntity.getAreaLevel()+"");
+        dao.createone(one);
+
+        HashMap<String, String> two = new HashMap<>();
+        two.put("organizationName",organizationOtherEntity.getOrganizationName());
+        two.put("employeeId",id);
+        two.put("annuaFee",organizationOtherEntity.getAnnuaFee()+"");
+        two.put("resourcesFund",organizationOtherEntity.getResourcesFund()+"");
+        two.put("procurementTime",format);
+        two.put("procurementLevel",organizationOtherEntity.getProcurementLevel()+"");
+        two.put("procurementMethod",organizationOtherEntity.getProcurementMethod()+"");
+        two.put("organizationType",organizationOtherEntity.getOrganizationType()+"");
+        two.put("procurementApproach",organizationOtherEntity.getProcurementApproach()+"");
+        two.put("distribution",organizationOtherEntity.getDistribution()+"");
+        two.put("auditStatus",organizationOtherEntity.getAuditStatus()+"");
+        two.put("remake",organizationOtherEntity.getRemake()+"");
+        two.put("goStatus",organizationOtherEntity.getGoStatus()+"");
+        dao.createtwo(two);
+
+        dao.updatebynameandname(one);
+
+        String otherid = dao.queryotheridbyname(organizationOtherEntity.getOrganizationName());
+        String contactid = dao.querycontactidbyname(organizationOtherEntity.getOrganizationName());
+        Map<String, String> map = new HashMap<>();
+        map.put("otherid",otherid);
+        map.put("contactid",contactid);
+        map.put("organizationName",organizationOtherEntity.getOrganizationName());
+        dao.updateorgbyidid(map);
+
+    }
+
+    public void deleteOrganization(int id){
+        OrganizationOtherEntity entity = dao.checkOrganization(id);
+
+        System.out.println("id========================="+id);
+        System.out.println("OrganizationName========================="+entity.getOrganizationName());
+
+        dao.deleteorganization(id);
+        dao.deleteother(entity.getOrganizationName());
+        dao.deletecontact(entity.getOrganizationName());
     }
 }

@@ -75,5 +75,13 @@
 	<update id="deleteOrgbyname" parameterType="string">
 		update organization set contacts='',phone='',telephone='',agent='' where organization_name=#{0}
 	</update>
+
+	<select id="queryContactbynull" resultType="string">
+		select name from contacts_manage where institution is null
+	</select>
+
+	<select id="querycontactbyname" parameterType="string" resultType="com.javakc.ssm.modules.organization.information.entity.TempEntity">
+		select mobile_phone as mobilePhone,phone,agent from contacts_manage where name=#{0}
+	</select>
 	
 </mapper>

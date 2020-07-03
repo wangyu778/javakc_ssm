@@ -41,4 +41,22 @@ public interface OrganizationDao extends BaseDao<OrganizationEntity> {
      * @param map
      */
     public void updatetwo(Map<String,String> map);
+
+    public void createone(Map<String,String> map);
+    public void createtwo(Map<String,String> map);
+
+    public String queryorgbyname(String name);
+
+    public String queryempidbyname(String name);
+
+    public void updatebynameandname(Map<String,String> map);
+
+    public String queryotheridbyname(String name);
+    public String querycontactidbyname(String name);
+
+    public void updateorgbyidid(Map<String,String> map);
+
+    public void deleteorganization(int id);
+    public void deleteother(String name);
+    public void deletecontact(String name);
 }

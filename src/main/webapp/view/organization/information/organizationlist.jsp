@@ -29,7 +29,7 @@
 <%--								<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除--%>
 <%--							</button>--%>
 <%--						</shiro:hasPermission>--%>
-                        <button type="button" class="btn btn-success" data-toggle="modal" name="">
+                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="goto();">
                             新增机构
                         </button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" id="add" name="contact/queryContact.do">
@@ -73,7 +73,7 @@
 
 							<td>
 								<a style="text-decoration:none" class="col-sm-4" href="javascript:editor('${u.id}');" title="编辑">编辑</a>
-								<a style="text-decoration:none" class="col-sm-4" href="" title="删除">删除</a>
+								<a style="text-decoration:none" class="col-sm-4" href="javascript:deletemm('${u.id}');" title="删除">删除</a>
 								<a style="text-decoration:none" class="col-sm-4" href="javascript:check('${u.id}');" title="查看">查看</a>
 							</td>
 						</tr>
@@ -91,6 +91,12 @@
 	}
 	function editor(id) {
 		window.location.href = '<%=path%>organization/editorOrganization/' + id + '.do'
+	}
+	function deletemm(id) {
+		window.location.href = '<%=path%>organization/deleteOrganization/' + id + '.do'
+	}
+	function goto() {
+		window.location.href = '<%=path%>view/organization/information/createorganization.jsp'
 	}
 </script>
 </body>
